@@ -1,25 +1,48 @@
-import logo from './logo.svg';
-import './App.css';
+import './App.css';import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faMusic } from '@fortawesome/free-solid-svg-icons';
+import Footer from './Components/Footer';
+import VideoPage from './Components/VideoPage';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import MenuBar from './Components/MenuBar';
+
+
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
 
+    return(<div className="App p-1" > 
+    
+
+    <Router>
+      <header>
+        <MenuBar>
+          
+        </MenuBar>
+      </header>
+      <Routes>
+      <Route exact path="/" element={<VideoPage />} />
+      </Routes>
+    </Router>
+    <Footer>
+
+    </Footer>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    </div>);
+}
 export default App;
