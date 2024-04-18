@@ -31,7 +31,7 @@ public class VideoService {
         if(videoOptional.isPresent()){
             throw new IllegalStateException("Video link already in the list");
         }
-        Video createdVideo = new Video(video.getLink(),video.getUser());
+        Video createdVideo = new Video(video.getLink(),video.getUploader());
         return videoRepository.save(createdVideo);
     }
 
