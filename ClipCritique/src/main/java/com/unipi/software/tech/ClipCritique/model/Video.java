@@ -21,13 +21,16 @@ public class Video {
     @JsonFormat(shape=JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss")
     private LocalDateTime uploadDateTime;
 
-    public Video() {
+    @ManyToOne(targetEntity = User.class)
+    @JoinColumn(name = "user_id",referencedColumnName = "user_id")
+    private User user;
 
-    }
+    public Video() {}
 
-    public Video(String link){
+    public Video(String link, User user){
         this.link = link;
         this.uploadDateTime = LocalDateTime.now();
+        this.user = user;
     }
 
 

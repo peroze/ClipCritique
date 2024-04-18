@@ -31,7 +31,7 @@ public class VideoController {
     }
 
     @GetMapping(path = "/{id}")
-    public ResponseEntity<Optional<Video>> getVideoByid(@PathVariable("id") Long id ){
+    public ResponseEntity<Optional<Video>> getVideoById(@PathVariable("id") Long id ){
         try {
             return new ResponseEntity<>(videoService.getVideoById(id), HttpStatus.OK);
         }catch (Exception e){
@@ -53,13 +53,15 @@ public class VideoController {
 
     @DeleteMapping(path ="/{id}")
     public ResponseEntity<String> deleteVideoById(@PathVariable("id") Long id){
-        try {
-            videoService.deleteVideoById(id);
-            return new ResponseEntity<>("Successfully Deleted Video ",HttpStatus.OK);
-        }catch (IllegalStateException e){
-            e.printStackTrace();
-            return new ResponseEntity<>(e.getMessage(),HttpStatus.NOT_FOUND);
-        }
+        videoService.deleteVideoById(id);
+        return new ResponseEntity<>("Successfully Deleted Video ",HttpStatus.OK);
+
+    }
+
+    @GetMapping(path = "/rating/{id}")
+    public ResponseEntity<Double> getAverageRating(@PathVariable("id") Long id){
+        double rating =  videoService.getAverageRating(id);
+        return ResponseEntity.ok(rating);
     }
 
 
