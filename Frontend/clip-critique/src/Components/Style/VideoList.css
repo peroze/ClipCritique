@@ -1,0 +1,47 @@
+.rating{
+    font-size: larger;
+    margin: 15px;
+    color: rgb(11, 107, 196);
+    width: 90%;
+    text-align: left;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+  }
+
+  #half{
+    width: fit-content;
+    background: linear-gradient(90deg, rgb(11, 107, 196) 0%, rgb(11, 107, 196) 54.9%, rgba(255, 255, 255, 0) 55%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .uploader, .videoname{
+    margin: 23px;
+    font-size: 20px;
+    font-weight: bold;
+    color: rgb(11, 107, 196);
+    width: 90%;
+    text-align: left;
+  }
+  .video-container{
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    margin: 3%;
+  }
+  .add-movie-button{
+    background-color: green;
+    padding: 15px;
+    width: fit-content;
+    height: 100%;
+    border-radius: 15px;
+    margin-left: 15px;
+    border: 2px solid white;
+    transition: all 0.5s;
+    cursor: pointer;
+}
+
+.add-movie-button a{
+    font-size: 30px;
+}

@@ -5,11 +5,13 @@ import { faMusic } from '@fortawesome/free-solid-svg-icons';
 
     
 function VideoPage(){
-    const[rating, setrating] = useState(4.75);
+    const[rating, setrating] = useState(4.35);
     const[userrating, setuserrating] = useState(0);
     const count = Math.floor(rating);
     const percentage = (rating-count)*100;
     const[uploader, setuploader] = useState("Konstantinos");
+    const[videourl, setvideourl] = useState("https://www.youtube.com/embed/YlTwnqgDfnc?si=F0wKg2zQq2Jj-pso");
+
   
     
       return (
@@ -42,11 +44,12 @@ function VideoPage(){
                   return arr;
             })()} 
           
+            {rating}
   
   
           </div>
           <div className='video'>
-            <iframe id='ytvideo' height='700' src="https://www.youtube.com/embed/YlTwnqgDfnc?si=F0wKg2zQq2Jj-pso" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+            <iframe id='ytvideo' height='700' src={videourl} title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
           </div>
   
           <div className='uploader'>

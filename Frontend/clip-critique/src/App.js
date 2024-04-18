@@ -4,6 +4,8 @@ import Footer from './Components/Footer';
 import VideoPage from './Components/VideoPage';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import MenuBar from './Components/MenuBar';
+import VideoList from './Components/VideoList';
+import UploadVideo from './Components/UploadVideo';
 
 
 
@@ -19,7 +21,10 @@ function App() {
         </MenuBar>
       </header>
       <Routes>
-      <Route exact path="/" element={<VideoPage />} />
+      <Route exact path="/" element={<VideoList />} />
+      <Route path="/video" element={<VideoPage />} />
+      <Route path="/upload" element={<UploadVideo />} />
+
       </Routes>
     </Router>
     <Footer>
