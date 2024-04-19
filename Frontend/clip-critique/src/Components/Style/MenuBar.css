@@ -2,11 +2,10 @@
 .navbar{
     background-color: #77ACA2;
     position: sticky;
-    z-index: 1010; /* Adjust as needed */
+    z-index: 99; /* Adjust as needed */
     margin-top: 5px;
     margin-bottom: 5px;
     height: 10%;
-   
   }
   
   @media  (max-width: 600px) {
@@ -258,4 +257,5 @@
     justify-content: center;
     flex-direction: column;
     gap: 5px;
+    
   }
