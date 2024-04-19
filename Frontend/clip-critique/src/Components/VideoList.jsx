@@ -1,10 +1,12 @@
-import { useState } from "react";
+import { useState,useContext } from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMusic } from '@fortawesome/free-solid-svg-icons';
 import './Style/VideoList.css';
 import { useNavigate } from "react-router-dom";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { Video } from "./models/video";
+import { UserContext } from '../App';
+import { toast } from 'react-toastify';
 
 
 function VideoList() {
@@ -12,6 +14,8 @@ function VideoList() {
 
 const navigate=useNavigate();
 const[videos,setVideos]=useState([new Video(1,"https://img.youtube.com/vi/YlTwnqgDfnc/0.jpg","https://www.youtube.com/embed/YlTwnqgDfnc?si=F0wKg2zQq2Jj-pso","Konstantinos","KOULHS KOULHS KOULHS",4.75,"15/07/2024",Math.floor(4.75),(4.75-Math.floor(4.75))*100),new Video(1,"https://img.youtube.com/vi/YlTwnqgDfnc/0.jpg","https://www.youtube.com/embed/YlTwnqgDfnc?si=F0wKg2zQq2Jj-pso","Konstantinos","KOULHS KOULHS KOULHS",4.75,"15/07/2024",Math.floor(4.75),(4.75-Math.floor(4.75))*100)])
+
+const {isLoggedIn} = useContext(UserContext);
 
 return (
 
@@ -22,7 +26,13 @@ return (
         Videos
     </h1>
 
-    <div className='add-movie-button' onClick={()=>{navigate("/upload")}}>
+    <div className='add-movie-button' onClick={()=>{
+      if(isLoggedIn){
+        navigate("/upload")
+      }
+      else{
+        toast.error("You need to login to upload a video")
+      }}}>
             <a>
               <FontAwesomeIcon icon={faPlus} style={{color: "#ffffff",}} />
             </a>
