@@ -1,11 +1,17 @@
 package com.unipi.software.tech.ClipCritique.service;
 
+import com.unipi.software.tech.ClipCritique.exception.InvalidCredentialsException;
+import com.unipi.software.tech.ClipCritique.model.Role;
 import com.unipi.software.tech.ClipCritique.model.User;
+import com.unipi.software.tech.ClipCritique.model.authentication.LoginRequest;
+import com.unipi.software.tech.ClipCritique.model.authentication.RegisterRequest;
 import com.unipi.software.tech.ClipCritique.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 @Service
@@ -59,5 +65,33 @@ public class UserService {
                 .build();
 
         userRepository.save(createdUser);
+    }
+
+    public ResponseEntity<User> login(LoginRequest loginRequest) {
+
+        User user = userRepository.findUserByEmail(loginRequest.getEmail())
+                .orElseThrow(() -> new IllegalStateException("User was not found"));
+        if(user.getEmail().equals(loginRequest.getEmail()) && user.getPassword().equals(loginRequest.getPassword())){
+            return ResponseEntity.ok(user);
+        }
+        else{
+            throw new InvalidCredentialsException("Invalid credentials");
+        }
+
+    }
+
+    public void register(RegisterRequest registerRequest) {
+        Optional<User> user1 = userRepository.findUserByEmail(registerRequest.getEmail());
+        if(user1.isPresent()){
+            throw new IllegalStateException("User already exists");
+        }
+        User user = User.builder()
+                .password(registerRequest.getPassword())
+                .email(registerRequest.getEmail())
+                .dateOfBirth(registerRequest.getDateOfBirth())
+                .role(Role.USER)
+                .build();
+
+        userRepository.save(user);
     }
 }

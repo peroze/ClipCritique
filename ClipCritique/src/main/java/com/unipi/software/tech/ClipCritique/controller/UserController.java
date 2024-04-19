@@ -1,16 +1,13 @@
 package com.unipi.software.tech.ClipCritique.controller;
 
+import com.unipi.software.tech.ClipCritique.model.authentication.LoginRequest;
+import com.unipi.software.tech.ClipCritique.model.authentication.RegisterRequest;
 import com.unipi.software.tech.ClipCritique.model.Role;
 import com.unipi.software.tech.ClipCritique.model.User;
 import com.unipi.software.tech.ClipCritique.service.UserService;
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -60,6 +57,17 @@ public class UserController {
     public ResponseEntity<Void> addUser(@RequestBody User user){
         userService.addUser(user);
         return new ResponseEntity<>(HttpStatus.CREATED);
+    }
+
+    @PostMapping("/login")
+    public ResponseEntity<User> login(@RequestBody LoginRequest loginRequest){
+        return userService.login(loginRequest);
+    }
+
+    @PostMapping("/register")
+    public ResponseEntity<Void> login(@RequestBody RegisterRequest registerRequest){
+        userService.register(registerRequest);
+        return ResponseEntity.ok().build();
     }
 
 }
