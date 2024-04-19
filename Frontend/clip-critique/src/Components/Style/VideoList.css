@@ -29,6 +29,8 @@
     align-items: center;
     justify-content: flex-start;
     margin: 3%;
+    cursor: pointer;
+    padding: 5px;
   }
   .add-movie-button{
     background-color: green;

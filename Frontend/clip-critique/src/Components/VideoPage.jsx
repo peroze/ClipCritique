@@ -2,15 +2,14 @@ import './Style/VideoPage.css';
 import { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMusic } from '@fortawesome/free-solid-svg-icons';
+import { useLocation } from 'react-router-dom';
 
     
 function VideoPage(){
-    const[rating, setrating] = useState(4.35);
-    const[userrating, setuserrating] = useState(0);
-    const count = Math.floor(rating);
-    const percentage = (rating-count)*100;
-    const[uploader, setuploader] = useState("Konstantinos");
-    const[videourl, setvideourl] = useState("https://www.youtube.com/embed/YlTwnqgDfnc?si=F0wKg2zQq2Jj-pso");
+     const location=useLocation();
+     const video=location.state;
+     const[userrating, setuserrating] = useState(0);
+    
 
   
     
@@ -21,13 +20,13 @@ function VideoPage(){
           <div className='rating'>
             {(() => {
               const arr=[];
-                for (let i=0; i<count; i++) {
+                for (let i=0; i<video.count; i++) {
                   arr.push(<div id='ic'>
                   <i className='fas fa-music' icon={faMusic} />
   
                     
                 </div>)
-                } if (percentage>25 && percentage<75 ) {
+                } if (video.percentage>25 && video.percentage<75 ) {
                   
                   arr.push(<div id='ic'>
                   <i id='half' className='fas fa-music' icon={faMusic} />
@@ -35,7 +34,7 @@ function VideoPage(){
                 </div>) 
                 }
   
-                if(percentage > 74 ) {
+                if(video.percentage > 74 ) {
                   arr.push(<div id='ic'>
                   <i className='fas fa-music' icon={faMusic} />
   
@@ -44,16 +43,16 @@ function VideoPage(){
                   return arr;
             })()} 
           
-            {rating}
+            {video.rating}
   
   
           </div>
           <div className='video'>
-            <iframe id='ytvideo' height='700' src={videourl} title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+            <iframe id='ytvideo' height='700' src={video.url} title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
           </div>
   
           <div className='uploader'>
-            {uploader}
+            {video.uploader}
   
           </div>
   
