@@ -1,0 +1,31 @@
+.App {
+  
+    text-align: center;
+    /* background-color: #031926; */
+    height: 100vh;
+    min-height: 100vh;
+}
+
+body {
+    /* background-color: #031926 !important; */
+    position: relative;
+}
+  
+html {
+    /* this makes sure the padding and the border is included in the box sizing */
+    box-sizing: border-box;
+    overflow:hidden;
+  
+}
+  
+html, body {
+    padding: 0;
+    margin: 0;
+    height: 100%;
+    overflow-y: auto;
+  
+}
+
+* {
+    box-sizing: border-box;
+}
