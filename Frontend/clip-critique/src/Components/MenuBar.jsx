@@ -10,7 +10,6 @@ import {faFilm} from'@fortawesome/free-solid-svg-icons'
 import Container from 'react-bootstrap/Container';import { Link } from 'react-router-dom';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'; 
 import { UserContext } from '../App';
-import AuthService from "../services/auth.service.js";
 import unknownUserIcon from "./Images/unknownuser.png";
 import React, { useContext, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -76,7 +75,7 @@ function MenuBar(){
                 </Offcanvas.Body>
             </Navbar.Offcanvas>
             {isLoggedIn ? (
-              <Popup trigger={<Nav.Link className='exlink rounded-pill'><img className="fic pull-right navbar-text rounded-pill" src={unknownUserIcon}/></Nav.Link>}position='bottom center'>
+              <Popup trigger={<Nav.Link className='exlink rounded-pill'><a className='extext'>Profile</a><img className="fic pull-right navbar-text rounded-pill" src={unknownUserIcon}/></Nav.Link>}position='bottom center'>
               <div className="popupcontainer">
               
 

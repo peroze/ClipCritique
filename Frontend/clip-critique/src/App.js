@@ -75,7 +75,6 @@ function App() {
       <Routes>
       <Route exact path="/" element={<VideoList />} />
       <Route path="/video" element={<VideoPage />} />
-      <Route path="/upload" element={<UploadVideo />} />
       <Route path="/register" element={<Register />} />
       <Route path="/login" element={<Login />} />
 
@@ -83,6 +82,13 @@ function App() {
                 element={
                   <ProtectedRoute isLoading={isLoading} isAuthenticated={isLoggedIn} hasPermission={isAdmin}>
                     <AdminPanelUsers/>
+                  </ProtectedRoute>
+              }/>
+
+      <Route path="/upload" 
+                element={
+                  <ProtectedRoute isLoading={isLoading} isAuthenticated={isLoggedIn} hasPermission={true}>
+                    <UploadVideo/>
                   </ProtectedRoute>
               }/>
 

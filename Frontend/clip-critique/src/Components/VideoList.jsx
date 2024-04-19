@@ -1,9 +1,11 @@
-import { useState } from "react";
+import { useState,useContext } from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMusic } from '@fortawesome/free-solid-svg-icons';
 import './Style/VideoList.css';
 import { useNavigate } from "react-router-dom";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
+import { UserContext } from '../App';
+import { toast } from 'react-toastify';
 
 
 function VideoList() {
@@ -16,7 +18,7 @@ const percentage = (rating-count)*100;
 const[videoname, setvideoname] = useState("KOULHS KOULHS KOULHS");
 const navigate=useNavigate();
 
-
+const {isLoggedIn} = useContext(UserContext);
 
 return (
 
@@ -27,7 +29,13 @@ return (
         Videos
     </h1>
 
-    <div className='add-movie-button' onClick={()=>{navigate("/upload")}}>
+    <div className='add-movie-button' onClick={()=>{
+      if(isLoggedIn){
+        navigate("/upload")
+      }
+      else{
+        toast.error("You need to login to upload a video")
+      }}}>
             <a>
               <FontAwesomeIcon icon={faPlus} style={{color: "#ffffff",}} />
             </a>
