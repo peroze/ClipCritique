@@ -1,4 +1,4 @@
-import React, { useState,useEffect } from 'react';
+import React, { useState,useEffect,useContext } from 'react';
 import { Link } from 'react-router-dom';
 import Card from 'react-bootstrap/Card';
 import Form from 'react-bootstrap/Form';
@@ -11,12 +11,14 @@ import LoadingButton from './LoadingButton';
 import { useLocation } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import videoService from '../services/video.service';
+import { UserContext } from '../App';
 
 
 function UploadVideo() {
 
 const [videoname, setvideoname] = useState("");
 const [videourl, setvideourl] = useState("");
+const {user} = useContext(UserContext);
 
 
 const handleInputChange = (e) => {
@@ -30,7 +32,7 @@ const handleInputChange = (e) => {
   }; 
 
   const handleButtonClick = () => {
-    videoService.addvideo(videourl, new Date(), videoname, null)
+    videoService.addvideo(videourl, new Date(), videoname, user);
   };
 
     return (

@@ -17,10 +17,13 @@ function VideoPage(){
      const[video, setvideo] = useState("");
      const[userrating, setuserrating] = useState(0);
      const[isLoading, setisLoading] = useState(true);
-     const {isLoggedIn,isAdmin} = useContext(UserContext);
+     const {isLoggedIn,isAdmin,user} = useContext(UserContext);
      const [showDeleteModal, setShowDeleteModal] = useState(false);
      const handleDeleteShow = () => setShowDeleteModal(true);
      const handleDeleteClose = () => setShowDeleteModal(false);
+
+
+
       useEffect(( ) => {
           if (isLoading) {
             videoService.getVideoReview(videotemp.id).then((response) => {
@@ -170,10 +173,10 @@ function VideoPage(){
               var obj = new function() {
               var id = videotemp.id; }
 
-              ReviewService.addreview(null, obj, userrating)
+              ReviewService.addreview(user, obj, userrating)
               
             } }>Submit</button>
-{isAdmin && isLoggedIn && (
+            {isAdmin && isLoggedIn && (
               <Button variant="danger" size="lg" className="report-video-button" onClick={() => handleDeleteShow(video)}>
                 Report Video
               </Button>
