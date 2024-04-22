@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Entity
@@ -18,8 +19,8 @@ public class Video {
     @Column(name = "video_id")
     private Long id;
     private String link;
-    @JsonFormat(shape=JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss")
-    private LocalDateTime uploadDateTime;
+    @JsonFormat(shape=JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
+    private LocalDate uploadDate;
 
     @ManyToOne(targetEntity = User.class)
     @JoinColumn(name = "user_id",referencedColumnName = "user_id")
@@ -29,7 +30,7 @@ public class Video {
 
     public Video(String link, User uploader){
         this.link = link;
-        this.uploadDateTime = LocalDateTime.now();
+        this.uploadDate = LocalDate.now();
         this.uploader = uploader;
     }
 

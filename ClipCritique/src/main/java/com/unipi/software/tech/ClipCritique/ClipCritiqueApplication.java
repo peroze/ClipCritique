@@ -2,8 +2,10 @@ package com.unipi.software.tech.ClipCritique;
 
 import com.unipi.software.tech.ClipCritique.model.Role;
 import com.unipi.software.tech.ClipCritique.model.User;
+import com.unipi.software.tech.ClipCritique.model.Video;
 import com.unipi.software.tech.ClipCritique.model.authentication.RegisterRequest;
 import com.unipi.software.tech.ClipCritique.repository.UserRepository;
+import com.unipi.software.tech.ClipCritique.repository.VideoRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -48,7 +50,7 @@ public class ClipCritiqueApplication {
 	}
 
 	@Bean
-	CommandLineRunner run (UserRepository userRepository) {
+	CommandLineRunner run (UserRepository userRepository, VideoRepository videoRepository) {
 		return args ->{
 
 			var admin = User.builder()
@@ -60,6 +62,11 @@ public class ClipCritiqueApplication {
 					.build();
 
 			userRepository.save(admin);
+
+
+			Video video = new Video("https://www.youtube.com/embed/YlTwnqgDfnc?si=P1eqDzTe3Md4Hfvn",admin);
+			videoRepository.save(video);
+
 		};
 	}
 
