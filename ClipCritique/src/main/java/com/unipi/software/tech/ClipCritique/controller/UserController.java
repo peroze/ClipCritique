@@ -31,7 +31,7 @@ public class UserController {
         return userService.getAllUsers();
     }
 
-    @PatchMapping(path = "/{id}")
+    @PutMapping(path = "/{id}")
     public ResponseEntity<HttpStatus> updateUser(@PathVariable("id") Long user_id, @RequestBody User user){
         userService.updateUser(user_id,user);
         return ResponseEntity.ok(HttpStatus.OK);
