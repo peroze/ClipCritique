@@ -24,7 +24,7 @@ useEffect(() => {
       for (let i=0; i<response.length; i++) {
         if((videos.length<response.length)){
         let id=response[i].link.split("?")[0].split("/")
-        let video = new videomin(response[i].id, "https://img.youtube.com/vi/"+id[id.length-1]+"/0.jpg", response[i].link, response[i].uploader, response[i].name, response[i].uploadLocalDate)
+        let video = new videomin(response[i].id, "https://img.youtube.com/vi/"+id[id.length-1]+"/0.jpg", response[i].link, response[i].uploader.fullName, response[i].name, response[i].uploadLocalDate)
         videos.push(video) }
       }
       console.log(videos)
