@@ -4,9 +4,6 @@ import { faMusic } from '@fortawesome/free-solid-svg-icons';
 import './Style/VideoList.css';
 import { useNavigate } from "react-router-dom";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
-import { Video } from "./models/video";
-import { UserContext } from '../App';
-import { toast } from 'react-toastify';
 
 
 function VideoList() {
