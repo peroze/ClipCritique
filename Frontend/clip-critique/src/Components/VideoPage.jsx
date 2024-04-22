@@ -173,7 +173,7 @@ function VideoPage(){
               var obj = new function() {
               var id = videotemp.id; }
 
-              ReviewService.addreview(user, obj, userrating)
+              ReviewService.addreview(user, obj, userrating);
               
             } }>Submit</button>
             {isAdmin && isLoggedIn && (

@@ -18,4 +18,4 @@ class ReviewService{
         });
     }
 
-} export default ReviewService
+} export default new ReviewService();
