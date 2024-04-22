@@ -2,6 +2,7 @@ package com.unipi.software.tech.ClipCritique.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -12,6 +13,7 @@ import java.time.LocalDateTime;
 @Table(name = "videos")
 @Getter
 @Setter
+@AllArgsConstructor
 public class Video {
 
     @Id
@@ -20,18 +22,21 @@ public class Video {
     private Long id;
     private String link;
     @JsonFormat(shape=JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
-    private LocalDate uploadDate;
+    private LocalDate uploadLocalDate;
 
     @ManyToOne(targetEntity = User.class)
     @JoinColumn(name = "user_id",referencedColumnName = "user_id")
     private User uploader;
 
+    private String name;
+
     public Video() {}
 
-    public Video(String link, User uploader){
+    public Video(String link, User uploader,String name){
         this.link = link;
-        this.uploadDate = LocalDate.now();
+        this.uploadLocalDate = LocalDate.now();
         this.uploader = uploader;
+        this.name=name;
     }
 
 

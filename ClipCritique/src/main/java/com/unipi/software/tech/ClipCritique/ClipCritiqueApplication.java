@@ -64,11 +64,13 @@ public class ClipCritiqueApplication {
 			userRepository.save(admin);
 
 
-			Video video = new Video("https://www.youtube.com/embed/YlTwnqgDfnc?si=P1eqDzTe3Md4Hfvn",admin);
+			Video video = new Video("https://www.youtube.com/embed/yR7Vg7viWkU?si=N4U4iXE1q_7pq-EV",admin,"Τμήμα Πληροφορικής - Πανεπιστήμιο Πειραιώς");
 			videoRepository.save(video);
 
 		};
 	}
+
+
 
 
 }
