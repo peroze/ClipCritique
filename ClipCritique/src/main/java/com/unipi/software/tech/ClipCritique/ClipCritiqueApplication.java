@@ -1,5 +1,10 @@
 package com.unipi.software.tech.ClipCritique;
 
+import com.unipi.software.tech.ClipCritique.model.Role;
+import com.unipi.software.tech.ClipCritique.model.User;
+import com.unipi.software.tech.ClipCritique.model.authentication.RegisterRequest;
+import com.unipi.software.tech.ClipCritique.repository.UserRepository;
+import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
@@ -7,7 +12,11 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 @SpringBootApplication
 public class ClipCritiqueApplication {
@@ -37,4 +46,22 @@ public class ClipCritiqueApplication {
 		urlBasedCorsConfigurationSource.registerCorsConfiguration("/**", corsConfiguration);
 		return new CorsFilter(urlBasedCorsConfigurationSource);
 	}
+
+	@Bean
+	CommandLineRunner run (UserRepository userRepository) {
+		return args ->{
+
+			var admin = User.builder()
+					.fullName("Admin")
+					.email("cineticketbooking@gmail.com")
+					.password("12345")
+					.dateOfBirth(LocalDate.of(1999,6,6))
+					.role(Role.ADMIN)
+					.build();
+
+			userRepository.save(admin);
+		};
+	}
+
+
 }

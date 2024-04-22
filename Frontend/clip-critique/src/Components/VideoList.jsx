@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState,useContext, useEffect } from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMusic } from '@fortawesome/free-solid-svg-icons';
 import './Style/VideoList.css';
@@ -7,6 +7,8 @@ import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { Video } from "./models/video";
 import videoService from "../services/video.service";
 import { videomin } from "./models/video";
+import { UserContext } from '../App';
+import { toast } from 'react-toastify';
 
 
 function VideoList() {
@@ -15,6 +17,7 @@ function VideoList() {
 const navigate=useNavigate();
 const[videos,setVideos]=useState([])
 const[isLoading, setisLoading] = useState(true);
+
 
 useEffect(() => {
   if (isLoading) {
@@ -29,6 +32,9 @@ useEffect(() => {
       console.log(videos)
      setisLoading(false) } )
     }
+const {isLoggedIn} = useContext(UserContext);
+
+return (
 
   },[]);
 
@@ -36,6 +42,7 @@ useEffect(() => {
     return <div className="App">Loading...</div>;
   } else {
     return (
+
 
       <div>
           <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.0/css/all.min.css"/>
@@ -73,6 +80,33 @@ useEffect(() => {
                      {video.uploader}
                     </div>
                 </div>
+    <div className='add-movie-button' onClick={()=>{
+      if(isLoggedIn){
+        navigate("/upload")
+      }
+      else{
+        toast.error("You need to login to upload a video")
+      }}}>
+            <a>
+              <FontAwesomeIcon icon={faPlus} style={{color: "#ffffff",}} />
+            </a>
+
+          </div>
+          {videos.map((video)=>(
+
+          <div className="video-container" onClick={()=>navigate("/video",{state:video})}>
+
+          <div>
+            <img className='moviePhoto' src={video.imageurl}></img>
+          </div>
+    
+
+           <div>
+              <div className="videoname">
+              {
+                video.videoname
+              }
+
               </div>
              ))}
       </div>

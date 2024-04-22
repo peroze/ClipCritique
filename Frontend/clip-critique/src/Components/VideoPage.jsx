@@ -1,11 +1,15 @@
 import './Style/VideoPage.css';
-import { useEffect, useState } from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faMusic } from '@fortawesome/free-solid-svg-icons';
 import { useLocation } from 'react-router-dom';
 import videoService from '../services/video.service';
 import { Video } from './models/video';
 import ReviewService from '../services/review.service';
+import { useState,useContext,useEffect } from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faMusic } from '@fortawesome/free-solid-svg-icons';
+import { useLocation } from 'react-router-dom';
+import Button from 'react-bootstrap/Button';
+import { UserContext } from '../App';
+import ReportVideoModal from './ReportVideoModal';
 
     
 function VideoPage(){
@@ -14,7 +18,10 @@ function VideoPage(){
      const[video, setvideo] = useState("");
      const[userrating, setuserrating] = useState(0);
      const[isLoading, setisLoading] = useState(true);
-
+     const {isLoggedIn,isAdmin} = useContext(UserContext);
+     const [showDeleteModal, setShowDeleteModal] = useState(false);
+     const handleDeleteShow = () => setShowDeleteModal(true);
+     const handleDeleteClose = () => setShowDeleteModal(false);
       useEffect(( ) => {
           if (isLoading) {
             videoService.getVideoReview(videotemp.id).then((response) => {
@@ -32,8 +39,11 @@ function VideoPage(){
       if (isLoading) {
         return <div className="App">Loading...</div>;
       }
-     
-      return (
+          
+  
+    
+    return (
+
       <div className="content-container">
   
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.0/css/all.min.css"/>
@@ -80,15 +90,15 @@ function VideoPage(){
   
             <h1> Your Rating:</h1> 
   
-          <div className='icr' id='first' onClick={() => {
-            document.getElementById('first').classList.remove('selected');
-            document.getElementById('second').classList.remove('selected');
-            document.getElementById('third').classList.remove('selected');
-            document.getElementById('fourth').classList.remove('selected');
-            document.getElementById('fifth').classList.remove('selected');
-            setuserrating(1)
-            document.getElementById('first').classList.add('selected');
-          }}>
+            <div className='icr' id='first' onClick={() => {
+              document.getElementById('first').classList.remove('selected');
+              document.getElementById('second').classList.remove('selected');
+              document.getElementById('third').classList.remove('selected');
+              document.getElementById('fourth').classList.remove('selected');
+              document.getElementById('fifth').classList.remove('selected');
+              setuserrating(1)
+              document.getElementById('first').classList.add('selected');
+            }}>
           
               <FontAwesomeIcon icon={faMusic} />
   
@@ -119,7 +129,7 @@ function VideoPage(){
             document.getElementById('first').classList.add('selected');
             document.getElementById('second').classList.add('selected');
             document.getElementById('third').classList.add('selected');
-          }}>
+            }}>
               <FontAwesomeIcon icon={faMusic} />
   
             </div>
@@ -135,7 +145,7 @@ function VideoPage(){
             document.getElementById('third').classList.add('selected');
             document.getElementById('fourth').classList.add('selected');
   
-          }}>
+            }}>
               <FontAwesomeIcon icon={faMusic} />
   
             </div>
@@ -151,11 +161,12 @@ function VideoPage(){
             document.getElementById('third').classList.add('selected');
             document.getElementById('fourth').classList.add('selected');
             document.getElementById('fifth').classList.add('selected');
-          }}>
+            }}>
               <FontAwesomeIcon icon={faMusic} />
   
             </div>
   
+
             <button class="button-56" role="button" onClick={() => {
               var obj = new function() {
               var id = videotemp.id; }
@@ -163,10 +174,27 @@ function VideoPage(){
               ReviewService.addreview(null, obj, userrating)
               
             } }>Submit</button>
+{isAdmin && isLoggedIn && (
+              <Button variant="danger" size="lg" className="report-video-button" onClick={() => handleDeleteShow(video)}>
+                Report Video
+              </Button>
+            )}
   
+
           </div>
+
+          {showDeleteModal && (<ReportVideoModal
+                show={showDeleteModal}
+                video={video}
+                onHide={() => setShowDeleteModal(false)}
+                showModal = {handleDeleteShow}
+                closeModal = {handleDeleteClose}
+        />
+        )}
   
         </div>
+
+
     );
 
 }

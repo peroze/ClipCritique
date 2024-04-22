@@ -104,6 +104,7 @@
     align-items: center;
     justify-content: flex-start;
     width: 90%;
+    
   }
   
   #half{
@@ -176,3 +177,7 @@
       padding: 0 40px;
     }
   }
+
+.report-video-button{
+  margin-left: auto;
+}
