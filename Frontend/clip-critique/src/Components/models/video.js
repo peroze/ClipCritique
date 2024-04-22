@@ -11,5 +11,20 @@ export class Video {
         this.percentage =percentage;
         this.date=date;
         this.url=url;
-     } 
-  }
+     }    
+    
+    }
+
+    export class videomin{
+
+        constructor(id, imageurl, url, uploader, videoname, date)  {
+
+            this.id=id;
+            this.imageurl=imageurl;
+            this.uploader=uploader;
+            this.videoname=videoname;
+            this.date=date;
+            this.url=url;
+         } 
+         
+    }

@@ -1,5 +1,9 @@
 import './Style/VideoPage.css';
-import { useState,useContext } from 'react';
+import { useLocation } from 'react-router-dom';
+import videoService from '../services/video.service';
+import { Video } from './models/video';
+import ReviewService from '../services/review.service';
+import { useState,useContext,useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMusic } from '@fortawesome/free-solid-svg-icons';
 import { useLocation } from 'react-router-dom';
@@ -9,19 +13,37 @@ import ReportVideoModal from './ReportVideoModal';
 
     
 function VideoPage(){
-  const location=useLocation();
-  const video=location.state;
-  const[userrating, setuserrating] = useState(0);
-     
-    
-  const {isLoggedIn,isAdmin} = useContext(UserContext);
-  const [showDeleteModal, setShowDeleteModal] = useState(false);
+     const location=useLocation();
+     const videotemp=location.state;
+     const[video, setvideo] = useState("");
+     const[userrating, setuserrating] = useState(0);
+     const[isLoading, setisLoading] = useState(true);
+     const {isLoggedIn,isAdmin} = useContext(UserContext);
+     const [showDeleteModal, setShowDeleteModal] = useState(false);
+     const handleDeleteShow = () => setShowDeleteModal(true);
+     const handleDeleteClose = () => setShowDeleteModal(false);
+      useEffect(( ) => {
+          if (isLoading) {
+            videoService.getVideoReview(videotemp.id).then((response) => {
+            let temp = new Video(videotemp.id, videotemp.imageurl,videotemp.url,videotemp.uploader, videotemp.videoname, response, videotemp.date, Math.floor(response), (response-Math.floor(response))*100)
+        
+            console.log(temp)
+            setisLoading(false)
+            setvideo(temp)
+            
+            })
+          }
+        
+      } ) 
 
-  const handleDeleteShow = () => setShowDeleteModal(true);
-  const handleDeleteClose = () => setShowDeleteModal(false);
+      if (isLoading) {
+        return <div className="App">Loading...</div>;
+      }
+          
   
     
     return (
+
       <div className="content-container">
   
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.0/css/all.min.css"/>
@@ -144,13 +166,21 @@ function VideoPage(){
   
             </div>
   
-            <button class="button-56" role="button">Submit</button>
 
-            {isAdmin && isLoggedIn && (
+            <button class="button-56" role="button" onClick={() => {
+              var obj = new function() {
+              var id = videotemp.id; }
+
+              ReviewService.addreview(null, obj, userrating)
+              
+            } }>Submit</button>
+{isAdmin && isLoggedIn && (
               <Button variant="danger" size="lg" className="report-video-button" onClick={() => handleDeleteShow(video)}>
                 Report Video
               </Button>
             )}
+  
+
           </div>
 
           {showDeleteModal && (<ReportVideoModal
