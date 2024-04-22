@@ -54,6 +54,7 @@
 
 .video-container:hover{
   background-color: rgba(0, 0, 255, 0.5);
+  transition: all 0.5s linear;
 }
 
 .video-container:hover .uploader{

@@ -9,6 +9,8 @@ import { faMusic } from '@fortawesome/free-solid-svg-icons';
 import Button from 'react-bootstrap/Button';
 import { UserContext } from '../App';
 import ReportVideoModal from './ReportVideoModal';
+import { toast } from 'react-toastify';
+
 
     
 function VideoPage(){
@@ -170,10 +172,20 @@ function VideoPage(){
   
 
             <button class="button-56" role="button" onClick={() => {
-              var obj = new function() {
-              var id = videotemp.id; }
-
-              ReviewService.addreview(user, obj, userrating);
+              if(!isLoggedIn){
+                toast.error("You are not logged in!")
+                return;
+              }
+              var vid = {
+                id:videotemp.id, 
+              };
+              console.log(vid);
+            ReviewService.addreview(user, vid, userrating).then((response)=>{
+              toast.success("The video was uploaded successfully.")
+              setisLoading(true);
+            });
+            
+            
               
             } }>Submit</button>
             {isAdmin && isLoggedIn && (

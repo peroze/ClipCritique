@@ -4,6 +4,7 @@ import axios from 'axios';
 class ReviewService{
 
     addreview(reviewer,video,rating){
+        console.log(reviewer);
         return api
         .post("/review/",{
             reviewer,

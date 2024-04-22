@@ -12,6 +12,8 @@ import { useLocation } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import videoService from '../services/video.service';
 import { UserContext } from '../App';
+import { toast } from 'react-toastify';
+
 
 
 function UploadVideo() {
@@ -19,6 +21,7 @@ function UploadVideo() {
 const [videoname, setvideoname] = useState("");
 const [videourl, setvideourl] = useState("");
 const {user} = useContext(UserContext);
+const navigate=useNavigate();
 
 
 const handleInputChange = (e) => {
@@ -32,7 +35,10 @@ const handleInputChange = (e) => {
   }; 
 
   const handleButtonClick = () => {
-    videoService.addvideo(videourl, new Date(), videoname, user);
+    videoService.addvideo(videourl, new Date(), videoname, user).then((response)=>{
+        toast.success("The video was uploaded successfully.")
+        navigate('/')
+    });
   };
 
     return (
