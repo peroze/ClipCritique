@@ -1,78 +1,85 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMusic } from '@fortawesome/free-solid-svg-icons';
 import './Style/VideoList.css';
 import { useNavigate } from "react-router-dom";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { Video } from "./models/video";
+import videoService from "../services/video.service";
+import { videomin } from "./models/video";
 
 
 function VideoList() {
 
 
 const navigate=useNavigate();
-const[videos,setVideos]=useState([new Video(1,"https://img.youtube.com/vi/YlTwnqgDfnc/0.jpg","https://www.youtube.com/embed/YlTwnqgDfnc?si=F0wKg2zQq2Jj-pso","Konstantinos","KOULHS KOULHS KOULHS",4.75,"15/07/2024",Math.floor(4.75),(4.75-Math.floor(4.75))*100),new Video(1,"https://img.youtube.com/vi/YlTwnqgDfnc/0.jpg","https://www.youtube.com/embed/YlTwnqgDfnc?si=F0wKg2zQq2Jj-pso","Konstantinos","KOULHS KOULHS KOULHS",4.75,"15/07/2024",Math.floor(4.75),(4.75-Math.floor(4.75))*100)])
+const[videos,setVideos]=useState([])
+const[isLoading, setisLoading] = useState(true);
 
-return (
+useEffect(() => {
+  if (isLoading) {
+      videoService.getVideo().then((response) => {
+      console.log(response.length)
+      for (let i=0; i<response.length; i++) {
+        if((videos.length<response.length)){
+        let id=response[i].link.split("?")[0].split("/")
+        let video = new videomin(response[i].id, "https://img.youtube.com/vi/"+id[id.length-1]+"/0.jpg", response[i].link, response[i].uploader, response[i].name, response[i].uploadLocalDate)
+        videos.push(video) }
+      }
+      console.log(videos)
+     setisLoading(false) } )
+    }
 
-<div>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.0/css/all.min.css"/>
+  },[]);
 
-    <h1>
-        Videos
-    </h1>
+  if (isLoading) {
+    return <div className="App">Loading...</div>;
+  } else {
+    return (
 
-    <div className='add-movie-button' onClick={()=>{navigate("/upload")}}>
-            <a>
-              <FontAwesomeIcon icon={faPlus} style={{color: "#ffffff",}} />
-            </a>
-
-          </div>
-          {videos.map((video)=>(
-
-          <div className="video-container" onClick={()=>navigate("/video",{state:video})}>
-
-          <div>
-            <img className='moviePhoto' src={video.imageurl}></img>
-          </div>
-    
-
-           <div>
-              <div className="videoname">
-              {
-                video.videoname
-              }
-              </div>
-
-              <div className='rating'>
-              {(() => {
-                    const arr=[];
-                    for (let i=0; i<video.count; i++) {
-                        arr.push(<div id='ic'>
-                        <i className='fas fa-music' icon={faMusic} />
-                       </div>)
-                    } if (video.percentage>25 && video.percentage<75 ) {
-                        arr.push(<div id='ic'>
-                                    <i id='half' className='fas fa-music' icon={faMusic} />
-                                  </div>) 
+      <div>
+          <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.0/css/all.min.css"/>
+      
+          <h1>
+              Videos
+          </h1>
+      
+          <div className='add-movie-button' onClick={()=>{navigate("/upload")}}>
+                  <a>
+                    <FontAwesomeIcon icon={faPlus} style={{color: "#ffffff",}} />
+                  </a>
+      
+                </div>
+                {videos.map((video)=>(
+      
+                <div className="video-container" onClick={()=>navigate("/video",{state:video})}>
+      
+                <div>
+                  <img className='moviePhoto' src={video.imageurl}></img>
+                </div>
+          
+      
+                 <div>
+                    <div className="videoname">
+                    {
+                      video.videoname
                     }
-                    if(video.percentage > 74 ) {
-                      arr.push(<div id='ic'>
-                                  <i className='fas fa-music' icon={faMusic} />
+                    </div>
+                    <div className="uploader"> 
+                      Upload Date: {video.date}
+                    </div>
+                    
+                    <div className='uploader'>
+                     {video.uploader}
+                    </div>
+                </div>
+              </div>
+             ))}
+      </div>
+      )
+  }
 
-                              </div>)
-                    }
-                  return arr;
-              })()} 
-              </div>
-              <div className='uploader'>
-               {video.uploader}
-              </div>
-          </div>
-        </div>
-       ))}
-</div>
-)
+
    
 }
 

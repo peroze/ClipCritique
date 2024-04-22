@@ -10,6 +10,7 @@ import Col from 'react-bootstrap/Col';
 import LoadingButton from './LoadingButton';
 import { useLocation } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
+import videoService from '../services/video.service';
 
 
 function UploadVideo() {
@@ -21,15 +22,15 @@ const [videourl, setvideourl] = useState("");
 const handleInputChange = (e) => {
     
     const { name, value } = e.target;
-    if (name === 'name') {
+    if (name === 'videoname') {
       setvideoname(value);
-    } else if (name === 'url') {
+    } else if (name === 'videourl') {
       setvideourl(value);
     }     
   }; 
 
   const handleButtonClick = () => {
-    console.log(videoname, videourl)
+    videoService.addvideo(videourl, new Date(), videoname, null)
   };
 
     return (

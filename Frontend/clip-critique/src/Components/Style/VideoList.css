@@ -24,6 +24,7 @@
     width: 90%;
     text-align: left;
   }
+
   .video-container{
     display: flex;
     align-items: center;
@@ -31,6 +32,9 @@
     margin: 3%;
     cursor: pointer;
     padding: 5px;
+    height: fit-content;
+    border-radius: 20px;
+    padding: 10px;
   }
   .add-movie-button{
     background-color: green;
@@ -47,3 +51,21 @@
 .add-movie-button a{
     font-size: 30px;
 }
+
+.video-container:hover{
+  background-color: rgba(0, 0, 255, 0.5);
+}
+
+.video-container:hover .uploader{
+  color: white;
+}
+
+.video-container:hover .videoname{
+  color: white;
+}
+
+.moviePhoto{
+  border-radius: 20px;
+}
+
+
