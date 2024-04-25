@@ -3,7 +3,7 @@ import Navbar from 'react-bootstrap/Navbar';
 import Offcanvas from'react-bootstrap/Offcanvas';
 import "bootstrap/dist/css/bootstrap.min.css";
 import "../App.css";
-import logo from './Images/Steering.png';
+import logo from './Images/logo.png';
 import "../App.css";
 import { Component } from 'react';
 import style from"./Style/Footer.css"

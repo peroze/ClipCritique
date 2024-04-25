@@ -3,7 +3,7 @@ import Navbar from 'react-bootstrap/Navbar';
 import Offcanvas from'react-bootstrap/Offcanvas';
 import "bootstrap/dist/css/bootstrap.min.css";
 import "../App.css";
-import logo from './Images/Steering.png';
+import logo from './Images/logo.png';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {faUser} from'@fortawesome/free-regular-svg-icons'
 import {faFilm} from'@fortawesome/free-solid-svg-icons'

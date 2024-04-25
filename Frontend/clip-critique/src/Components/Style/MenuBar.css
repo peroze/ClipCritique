@@ -1,6 +1,6 @@
 
 .navbar{
-    background-color: #77ACA2;
+    background-color: rgba(0, 0, 255, 0.5);
     position: sticky;
     z-index: 99; /* Adjust as needed */
     margin-top: 5px;
@@ -133,7 +133,7 @@
       }
       
       #offcanvasNavbar{
-        background-color: #77ACA2;
+        background-color: rgba(0, 0, 255, 0.5);
         border-radius: 100px 0 100px 100px;      
         margin-right: 20%;
         overflow: visible;
@@ -195,7 +195,7 @@
   
     }
     .useritem:hover{
-      color: #77ACA2;
+      color: rgba(0, 0, 255, 0.5);
     }
     .useritem::before{
       content: "";
