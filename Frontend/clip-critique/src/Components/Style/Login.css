@@ -27,7 +27,7 @@
 
 .login-card {
     box-sizing: border-box;
-    background-color: #77ACA2 !important;
+    background-color: rgba(0, 0, 255, 0.5) !important;
     border-radius: 35px !important;  
     overflow-x:auto;
     overflow-y:auto;
