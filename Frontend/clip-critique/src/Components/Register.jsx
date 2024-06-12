@@ -15,7 +15,7 @@ import { useNavigate } from 'react-router-dom';
 
 
 import './Style/Register.css'; // Import the external CSS file
-import { counter } from '@fortawesome/fontawesome-svg-core';
+//import { counter } from '@fortawesome/fontawesome-svg-core';
 
 const Register = () => {
 
@@ -61,7 +61,7 @@ const Register = () => {
       document.getElementById('full').classList.add('error');
       counter++;
     }if (passwordConfirm === '') {
-      document.getElementById('pasconf').classList.add('error');
+      document.getElementById('passconf').classList.add('error');
       counter++;
     }if (password != passwordConfirm ){
       document.getElementById('pass').classList.add('error');
@@ -69,7 +69,7 @@ const Register = () => {
       counter++;
     }
     if (counter==0){
-      authService.register(fullName,email).then((response)=>{
+      authService.register(fullName,email,password).then((response)=>{
         console.log(response.data);
         navigate("/");
       }).catch((err)=>{
