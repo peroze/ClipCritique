@@ -3,6 +3,7 @@ package com.unipi.software.tech.ClipCritique;
 import com.unipi.software.tech.ClipCritique.model.Role;
 import com.unipi.software.tech.ClipCritique.model.User;
 import com.unipi.software.tech.ClipCritique.model.Video;
+import com.unipi.software.tech.ClipCritique.model.VideoCategory;
 import com.unipi.software.tech.ClipCritique.model.authentication.RegisterRequest;
 import com.unipi.software.tech.ClipCritique.repository.UserRepository;
 import com.unipi.software.tech.ClipCritique.repository.VideoRepository;
@@ -64,7 +65,7 @@ public class ClipCritiqueApplication {
 			userRepository.save(admin);
 
 
-			Video video = new Video("https://www.youtube.com/embed/yR7Vg7viWkU?si=N4U4iXE1q_7pq-EV",admin,"Τμήμα Πληροφορικής - Πανεπιστήμιο Πειραιώς");
+			Video video = new Video("https://www.youtube.com/embed/yR7Vg7viWkU?si=N4U4iXE1q_7pq-EV",admin,"Τμήμα Πληροφορικής - Πανεπιστήμιο Πειραιώς", VideoCategory.GreekLaika, 12);
 			videoRepository.save(video);
 
 		};

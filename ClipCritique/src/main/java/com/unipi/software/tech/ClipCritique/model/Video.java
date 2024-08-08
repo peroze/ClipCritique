@@ -27,16 +27,18 @@ public class Video {
     @ManyToOne(targetEntity = User.class)
     @JoinColumn(name = "user_id",referencedColumnName = "user_id")
     private User uploader;
-
+    private VideoCategory category;
     private String name;
-
+    private Integer agerating;
     public Video() {}
 
-    public Video(String link, User uploader,String name){
+    public Video(String link, User uploader,String name, VideoCategory category, Integer agerating){
         this.link = link;
         this.uploadLocalDate = LocalDate.now();
         this.uploader = uploader;
         this.name=name;
+        this.agerating=agerating;
+        this.category=category;
     }
 
 

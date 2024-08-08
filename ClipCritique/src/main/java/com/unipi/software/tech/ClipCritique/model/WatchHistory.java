@@ -1,10 +1,7 @@
 package com.unipi.software.tech.ClipCritique.model;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import lombok.*;
-
-import java.time.LocalDateTime;
 
 @Builder
 @Entity
@@ -12,17 +9,17 @@ import java.time.LocalDateTime;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@Table (name = "reviews")
-public class Review {
+@Table (name = "watchhistory")
+public class WatchHistory {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="review_id")
+    @Column(name="watchhistory_id")
     private Long id;
 
     @ManyToOne(targetEntity = User.class)
-    @JoinColumn(name = "user_id",referencedColumnName = "user_id")
-    private User reviewer;
+    @JoinColumn(name = "user_id",referencedColumnName = "user_id",nullable = false)
+    private User user;
 
     @ManyToOne(targetEntity = Video.class)
     @JoinColumn(name = "video_id",referencedColumnName = "video_id",nullable = false)
