@@ -15,7 +15,7 @@ import { useNavigate } from 'react-router-dom';
 
 
 import './Style/Register.css'; // Import the external CSS file
-//import { counter } from '@fortawesome/fontawesome-svg-core';
+
 
 const Register = () => {
 
@@ -45,7 +45,7 @@ const Register = () => {
 
 
   const handleButtonClick = () => {
-    counter=0;
+    let counter=0;
     document.getElementById('email').classList.remove('error');
     document.getElementById('pass').classList.remove('error');
     document.getElementById('full').classList.remove('error');

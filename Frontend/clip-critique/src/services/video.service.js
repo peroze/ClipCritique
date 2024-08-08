@@ -10,13 +10,15 @@ class VideoService {
         });
     }
 
-    addvideo(link,uploadDateTime,name,uploader){
+    addvideo(link,uploadDateTime,name,uploader,category,agerating){
       return api
       .post("/video/",{
           link,
           uploadDateTime,
           name,
-          uploader
+          uploader,
+          category,
+          agerating
       })
       .then(response => {
           return response.data;

@@ -22,14 +22,15 @@ const {isLoggedIn,isAdmin} = useContext(UserContext);
 useEffect(() => {
   if (isLoading) {
       videoService.getVideo().then((response) => {
-      console.log(response.length)
+      //console.log(response.length)
+      console.log(response)
       for (let i=0; i<response.length; i++) {
         if((videos.length<response.length)){
         let id=response[i].link.split("?")[0].split("/")
-        let video = new videomin(response[i].id, "https://img.youtube.com/vi/"+id[id.length-1]+"/0.jpg", response[i].link, response[i].uploader.fullName, response[i].name, response[i].uploadLocalDate)
+        let video = new videomin(response[i].id, "https://img.youtube.com/vi/"+id[id.length-1]+"/0.jpg", response[i].link, response[i].uploader.fullName, response[i].name, response[i].uploadLocalDate, response[i].category, response[i].agerating)
         videos.push(video) }
       }
-      console.log(videos)
+      //console.log(videos)
      setisLoading(false) } )
     }
 

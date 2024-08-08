@@ -3,12 +3,26 @@ import axios from 'axios';
 
 class ReviewService{
 
-    addreview(reviewer,video,rating){
-        console.log(reviewer);
+    addreview(user,video,rating){
         return api
         .post("/review/",{
-            reviewer,
+            user,
             video,
+            rating
+        })
+        .then(response => {
+            return response.data;
+        })
+        .catch(error => {
+            throw error; // Rethrow the error to handle it in the caller
+        });
+    }
+
+    updatereview(userF,video,rating){
+        let user = userF.id;
+        return api
+        .put("/review/"+video.id,{
+            user,
             rating
         })
         .then(response => {
