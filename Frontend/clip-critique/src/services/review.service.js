@@ -20,9 +20,11 @@ class ReviewService{
 
     updatereview(userF,video,rating){
         let user = userF.id;
+        let video_id = video.id;
         return api
-        .put("/review/"+video.id,{
+        .put("/review/review",{
             user,
+            video_id,
             rating
         })
         .then(response => {

@@ -31,7 +31,7 @@ function VideoPage(){
           if (isLoading) {
             videoService.getVideoReview(videotemp.id).then((response) => {
             console.log(videotemp)
-            let temp = new Video(videotemp.id, videotemp.imageurl,videotemp.url,videotemp.uploader, videotemp.videoname, response, videotemp.date, Math.floor(response), (response-Math.floor(response))*100, videotemp.category, videotemp.agerating)
+            let temp = new Video(videotemp.id, videotemp.imageurl,videotemp.url,videotemp.uploader, videotemp.videoname, response, videotemp.date, Math.floor(response), (response-Math.floor(response))*100, videotemp.category, videotemp.agerating, videotemp.artist)
         
             //console.log(temp)
             setisLoading(false)
@@ -99,6 +99,11 @@ function VideoPage(){
           
           <div className='uploader'>
             Category: {video.category}
+  
+          </div>
+          
+          <div className='uploader'>
+            Artist: {video.artist}
   
           </div>
 
@@ -196,14 +201,13 @@ function VideoPage(){
               var vid = {
                 id:videotemp.id, 
               };
-              console.log(vid);
+              console.log(userrating);
             ReviewService.updatereview(user, vid, userrating).then((response)=>{
-              toast.success("The video was uploaded successfully.")
+              toast.success("Your rating has been succesfully submitted.")
               setisLoading(true);
             });
             
             
-              
             } }>Submit</button>
             {isAdmin && isLoggedIn && (
               <Button variant="danger" size="lg" className="report-video-button" onClick={() => handleDeleteShow(video)}>
