@@ -122,6 +122,7 @@ public class VideoService {
                 for (int j = i + 1; j < videos.size(); j++) {
                     if (suggestedagevideosbywatchhistory.get(i).getId() == videos.get(j).getId()) {
                         suggestedagevideosbywatchhistory.remove(suggestedagevideosbywatchhistory.get(i));
+                        break;
                     }
                 }
             }
@@ -130,6 +131,7 @@ public class VideoService {
                 for (int j = i + 1; j < videos.size(); j++) {
                     if (suggestedagevideosbyrating.get(i).getId() == videos.get(j).getId()) {
                         suggestedagevideosbyrating.remove(suggestedagevideosbyrating.get(i));
+                        break;
                     }
                 }
             }
