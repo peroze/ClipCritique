@@ -10,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -20,11 +21,11 @@ public class UserService {
 
     private final UserRepository userRepository;
 
-    public Optional<User> getUserByEmail(String email){
+    public Optional<User> getUserByEmail(String email) {
         return userRepository.findUserByEmail(email);
     }
 
-    public Optional<User> getUserById(Long id){
+    public Optional<User> getUserById(Long id) {
         return userRepository.findUserById(id);
     }
 
@@ -32,22 +33,22 @@ public class UserService {
         return userRepository.findAll();
     }
 
-    public void deleteUser(Long user_id){
-        if(userRepository.findUserById(user_id).isEmpty()){
+    public void deleteUser(Long user_id) {
+        if (userRepository.findUserById(user_id).isEmpty()) {
             throw new IllegalArgumentException("The given user does not exist");
         }
         userRepository.deleteById(user_id);
     }
 
-    public void updateUser(long id,User userUpd){
-        User user=userRepository.findById(id).orElseThrow(()->new IllegalArgumentException("The User does not exist"));
-        if(userUpd.getEmail()!=null && !userUpd.getEmail().isEmpty()){
+    public void updateUser(long id, User userUpd) {
+        User user = userRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("The User does not exist"));
+        if (userUpd.getEmail() != null && !userUpd.getEmail().isEmpty()) {
             user.setEmail(userUpd.getEmail());
         }
-        if(userUpd.getFullName()!=null && !userUpd.getFullName().isEmpty()){
+        if (userUpd.getFullName() != null && !userUpd.getFullName().isEmpty()) {
             user.setFullName(userUpd.getFullName());
         }
-        if(userUpd.getRole()!=null){
+        if (userUpd.getRole() != null) {
             user.setRole(userUpd.getRole());
         }
 
@@ -55,7 +56,7 @@ public class UserService {
     }
 
 
-    public void addUser(User user) {
+    public User addUser(User user) {
         User createdUser = User.builder()
                 .dateOfBirth(user.getDateOfBirth())
                 .fullName(user.getFullName())
@@ -64,25 +65,24 @@ public class UserService {
                 .role(user.getRole())
                 .build();
 
-        userRepository.save(createdUser);
+        return userRepository.save(createdUser);
     }
 
     public ResponseEntity<User> login(LoginRequest loginRequest) {
 
         User user = userRepository.findUserByEmail(loginRequest.getEmail())
                 .orElseThrow(() -> new IllegalStateException("User was not found"));
-        if(user.getEmail().equals(loginRequest.getEmail()) && user.getPassword().equals(loginRequest.getPassword())){
+        if (user.getEmail().equals(loginRequest.getEmail()) && user.getPassword().equals(loginRequest.getPassword())) {
             return ResponseEntity.ok(user);
-        }
-        else{
+        } else {
             throw new InvalidCredentialsException("Invalid credentials");
         }
 
     }
 
-    public void register(RegisterRequest registerRequest) {
+    public User register(RegisterRequest registerRequest) {
         Optional<User> user1 = userRepository.findUserByEmail(registerRequest.getEmail());
-        if(user1.isPresent()){
+        if (user1.isPresent()) {
             throw new IllegalStateException("User already exists");
         }
         User user = User.builder()
@@ -92,6 +92,24 @@ public class UserService {
                 .role(Role.USER)
                 .build();
 
-        userRepository.save(user);
+        return userRepository.save(user);
+    }
+
+    public List<User> findUserByAge(LocalDate dateofbirth) {
+        LocalDate younger = dateofbirth.minusYears(30);
+        LocalDate older = dateofbirth.plusYears(30);
+        List<User> users = userRepository.findAll();
+        for (User user : users) {
+            if (user.getDateOfBirth().getYear() - older.getYear() <= 5 && user.getDateOfBirth().getYear() - older.getYear() <= 0) {
+                continue;
+            } else {
+                if (younger.getYear() - user.getDateOfBirth().getYear() <= 5 && younger.getYear() - user.getDateOfBirth().getYear() >= 0 ) {
+                    continue;
+                } else {
+                    users.remove(user);
+                }
+            }
+        }
+        return users;
     }
 }

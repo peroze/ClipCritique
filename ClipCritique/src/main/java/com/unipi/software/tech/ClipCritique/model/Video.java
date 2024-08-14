@@ -30,15 +30,17 @@ public class Video {
     private VideoCategory category;
     private String name;
     private Integer agerating;
+    private String artist;
     public Video() {}
 
-    public Video(String link, User uploader,String name, VideoCategory category, Integer agerating){
+    public Video(String link, User uploader,String name, VideoCategory category, Integer agerating, String artist){
         this.link = link;
         this.uploadLocalDate = LocalDate.now();
         this.uploader = uploader;
         this.name=name;
         this.agerating=agerating;
         this.category=category;
+        this.artist=artist;
     }
 
 

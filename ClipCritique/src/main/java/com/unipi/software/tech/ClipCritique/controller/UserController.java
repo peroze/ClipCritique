@@ -22,23 +22,23 @@ public class UserController {
     private final UserService userService;
 
     @GetMapping(path = "/email/{encodedEmail}")
-    public Optional<User> getUserByEmail(@PathVariable("encodedEmail") String encodedEmail){
+    public Optional<User> getUserByEmail(@PathVariable("encodedEmail") String encodedEmail) {
         return userService.getUserByEmail(encodedEmail);
     }
 
     @GetMapping(path = "/")
-    public List<User> getAllUsers(){
+    public List<User> getAllUsers() {
         return userService.getAllUsers();
     }
 
     @PutMapping(path = "/{id}")
-    public ResponseEntity<HttpStatus> updateUser(@PathVariable("id") Long user_id, @RequestBody User user){
-        userService.updateUser(user_id,user);
+    public ResponseEntity<HttpStatus> updateUser(@PathVariable("id") Long user_id, @RequestBody User user) {
+        userService.updateUser(user_id, user);
         return ResponseEntity.ok(HttpStatus.OK);
     }
 
-    @DeleteMapping(path="/{id}")
-    public ResponseEntity<Void> deleteUser(@PathVariable("id") Long user_id){
+    @DeleteMapping(path = "/{id}")
+    public ResponseEntity<Void> deleteUser(@PathVariable("id") Long user_id) {
         userService.deleteUser(user_id);
         return ResponseEntity.noContent().build();
     }
@@ -54,20 +54,22 @@ public class UserController {
     }
 
     @PostMapping("/")
-    public ResponseEntity<Void> addUser(@RequestBody User user){
-        userService.addUser(user);
-        return new ResponseEntity<>(HttpStatus.CREATED);
+    public ResponseEntity<User> addUser(@RequestBody User user) {
+        User user1 = userService.addUser(user);
+        System.out.println(user1.getDateOfBirth());
+        System.out.println("--------------------------------------------------------------------------------////////////////////////////////////////////////////--------------------------------------------");
+        return new ResponseEntity<>(user1, HttpStatus.CREATED);
     }
 
     @PostMapping("/login")
-    public ResponseEntity<User> login(@RequestBody LoginRequest loginRequest){
+    public ResponseEntity<User> login(@RequestBody LoginRequest loginRequest) {
         return userService.login(loginRequest);
     }
 
     @PostMapping("/register")
-    public ResponseEntity<Void> login(@RequestBody RegisterRequest registerRequest){
-        userService.register(registerRequest);
-        return ResponseEntity.ok().build();
+    public ResponseEntity<User> login(@RequestBody RegisterRequest registerRequest) {
+
+        return new ResponseEntity<>(userService.register(registerRequest), HttpStatus.CREATED);
     }
 
 }

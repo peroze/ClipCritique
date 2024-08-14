@@ -19,6 +19,7 @@ public class WatchHistoryService {
     private final WatchHistoryRepository watchHistoryRepository;
     private final VideoRepository videoRepository;
     private final UserRepository userRepository;
+
     public WatchHistory addNewHistory(WatchHistory watchHistory) {
 
         Video video = videoRepository.findById(watchHistory.getVideo().getId())
@@ -26,7 +27,7 @@ public class WatchHistoryService {
 
         User user = userRepository.findById(watchHistory.getUser().getId())
                 .orElseThrow(() -> new IllegalArgumentException("User couldn't be found"));
-        List <WatchHistory> temp = watchHistoryRepository.findReviewsByVideoAndUserId(watchHistory.getVideo().getId(), watchHistory.getUser().getId());
+        List<WatchHistory> temp = watchHistoryRepository.findReviewsByVideoAndUserId(watchHistory.getVideo().getId(), watchHistory.getUser().getId());
         if (temp.isEmpty()) {
             WatchHistory createdWatchHistory = WatchHistory.builder()
                     .user(user)
@@ -40,13 +41,24 @@ public class WatchHistoryService {
         return watchHistoryRepository.save(temp.get(0));
     }
 
-    public List<WatchHistory> getAllReviewsByVideoId(Long id){
+    public List<WatchHistory> getAllReviewsByVideoId(Long id) {
         return watchHistoryRepository.findReviewsByVideoId(id);
     }
 
-    public void updateRating (Long Video, Long user, Integer rating){
-        List <WatchHistory> temp = watchHistoryRepository.findReviewsByVideoAndUserId(Video, user);
+    public void updateRating(Long Video, Long user, Integer rating) {
+        List<WatchHistory> temp = watchHistoryRepository.findReviewsByVideoAndUserId(Video, user);
         temp.get(0).setRating(rating);
         watchHistoryRepository.save(temp.get(0));
     }
+
+    public List<WatchHistory> findReviewsByUserId(Long user_id) {
+        List<WatchHistory> temp = watchHistoryRepository.findReviewsByUserId(user_id);
+        return temp;
+    }
+
+    public List<WatchHistory> findReviewsByUserIdAndRating(Long user_id) {
+        List<WatchHistory> temp = watchHistoryRepository.findReviewsByUserIdAndRating(user_id);
+        return temp;
+    }
+
 }
