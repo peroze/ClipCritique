@@ -15,7 +15,6 @@ import { useNavigate } from 'react-router-dom';
 
 
 import './Style/Register.css'; // Import the external CSS file
-//import { counter } from '@fortawesome/fontawesome-svg-core';
 
 const Register = () => {
 
