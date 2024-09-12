@@ -161,7 +161,6 @@ public class ClipCritiqueApplication {
             var admin49 = User.builder().fullName("Diesil Ackah").email("test49@gmail.com").password("12345").dateOfBirth(LocalDate.of(1973, 10, 28)).role(Role.USER).build();
             userRepository.save(admin49);
 
-
             Video video1 = new Video("https://www.youtube.com/embed/2Vv-BfVoq4g?si=1UGc-d43dyflHIUb", admin, "Perfect", VideoCategory.LoveSongs, 8, "Ed Sheeran");
             videoRepository.save(video1);
             Video video2 = new Video("https://www.youtube.com/embed/xeWRGDB5iWM?si=Vja1rOfi5pe4T5qS", admin, "STILL STANDING", VideoCategory.Rap, 16, "12os Pithikos & Dani Gambino");
@@ -282,25 +281,6 @@ public class ClipCritiqueApplication {
             videoRepository.save(video59);
             Video video60 = new Video("https://www.youtube.com/embed/cXqeaDoe7Pk?si=JZ31-5z8Fb_xatU-", admin, "Ώρες Μικρές", VideoCategory.Zeimpekiko, 17, "Γιώργος Μαζωνάκης");
             videoRepository.save(video60);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
             Questionnaire questionnaire = new Questionnaire(VideoCategory.Rap, VideoCategory.LoveSongs, VideoCategory.Trap, 1L, 2L, 3L, admin);
             questionnaireRepository.save(questionnaire);
@@ -525,9 +505,7 @@ public class ClipCritiqueApplication {
             watchHistoryService.addNewHistory(watchhistorya8);
             WatchHistory watchhistorya9 = new WatchHistory(-1L, admin, video5, "", 5);
             watchHistoryService.addNewHistory(watchhistorya9);
-
-
-        };
+            };
     }
 
 
