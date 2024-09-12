@@ -57,7 +57,6 @@ public class UserController {
     public ResponseEntity<User> addUser(@RequestBody User user) {
         User user1 = userService.addUser(user);
         System.out.println(user1.getDateOfBirth());
-        System.out.println("--------------------------------------------------------------------------------////////////////////////////////////////////////////--------------------------------------------");
         return new ResponseEntity<>(user1, HttpStatus.CREATED);
     }
 
